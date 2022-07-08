@@ -1,11 +1,10 @@
-import string
 import pymongo
 from utils.csv_parser import get_downloaded_files_list_array, move_parsed_files
 
 
 def insert_to_mongodb(my_dict: list) -> bool:
     """
-    > This function takes a list of dictionaries as an argument and inserts them into a MongoDB database
+    This function takes a list of dictionaries as an argument and inserts them into a MongoDB database
 
     :param my_dict: list
     :type my_dict: list

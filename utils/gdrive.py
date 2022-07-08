@@ -70,7 +70,7 @@ def download_all_csv_files() -> bool:
             # skipping other files than csv
             if not file_info["name"].lower().endswith(".csv"):
                 continue
-            # skipping file if it already exists ins parsed or to_parse directory
+            # skipping file if it already exists inside parsed or to_parse directory
             parsed_file_path = "downloads/parsed/" + file_info["name"]
             to_parse_file_path = "downloads/to_parse/" + file_info["name"]
             if os.path.exists(parsed_file_path) or os.path.exists(to_parse_file_path):
