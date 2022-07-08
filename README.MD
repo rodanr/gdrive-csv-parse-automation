@@ -1,0 +1,4 @@
+- Download the 0Auth json from the google developer console for google drive api access and put it inside `credentials` folder also rename the downloaded json to `credentials.json` 
+- Install all the dependencies using command `pip install -r requirements.txt`
+- After running the program, It asks for login; just login with the google account which you have added in the consent screen
+- Now, the program will auto parse the drive files and stores it to mongo database specified in the `mongodb_uri` variable in `utils/mongo_store.py`
