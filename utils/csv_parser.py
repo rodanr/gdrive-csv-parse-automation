@@ -2,6 +2,7 @@ import os
 import csv
 import shutil
 import string
+import json
 
 
 def get_downloaded_files_list_array() -> list:
@@ -13,19 +14,36 @@ def get_downloaded_files_list_array() -> list:
     return my_array_list
 
 
-def csv_to_dict(filename: string) -> dict:
+def csv_to_dict(filename: string) -> list:
     """
     `csv_to_dict` takes a filename as an argument and returns a dictionary having  parsed content of given csv appended with the extra fileName key having its fileName as its value.
     :param filename: the name of the file to be parsed
     :type filename: string
-    :return: A dictionary having  parsed content of given csv appended with the extra fileName key having its fileName as its value.
+    :return: A dictionary list having  parsed content of given csv appended
     """
     filepath = "downloads/to_parse/" + filename
-    my_dict = {}
+    my_dict = []
+    document_array = []
     with open(filepath, mode="r") as infile:
         reader = csv.reader(infile)
-        my_dict = {rows[0]: rows[1] for rows in reader}
-    my_dict.update({"fileName": filename})
+        for row in reader:
+            document_array.append(row)
+    for i in range(1, len(document_array)):
+        temp_dict = {}
+        for attribute_pos in range(len(document_array[i])):
+            if document_array[0][attribute_pos] == "answers":
+                temp_dict.update(
+                    {
+                        document_array[0][attribute_pos]: json.loads(
+                            document_array[i][attribute_pos]
+                        )
+                    }
+                )
+            else:
+                temp_dict.update(
+                    {document_array[0][attribute_pos]: document_array[i][attribute_pos]}
+                )
+        my_dict.append(temp_dict)
     return my_dict
 
 

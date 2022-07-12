@@ -14,8 +14,8 @@ def main():
             print("-> Parsing some files that were not parsed before")
         if download_status:
             print("-> Parsing downloaded files to database")
-        my_dict = csv_parser.parse_csv()
-        result = mongo_store.insert_to_mongodb(my_dict)
+        my_dict_list = csv_parser.parse_csv()
+        result = mongo_store.insert_to_mongodb(my_dict_list)
         print("Successfully wrote to database") if result else print(
             "Some error occured while writing to the database"
         )

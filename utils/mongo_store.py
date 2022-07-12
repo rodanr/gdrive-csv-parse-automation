@@ -2,9 +2,9 @@ import pymongo
 from utils.csv_parser import get_downloaded_files_list_array, move_parsed_files
 
 
-def insert_to_mongodb(my_dict: list) -> bool:
+def insert_to_mongodb(my_dict_list: list) -> bool:
     """
-    This function takes a list of dictionaries as an argument and inserts them into a MongoDB database
+    This function takes a list of list of dictionaries as an argument and inserts them into a MongoDB database
 
     :param my_dict: list
     :type my_dict: list
@@ -17,9 +17,10 @@ def insert_to_mongodb(my_dict: list) -> bool:
         mydb = myclient["gdrive-csv-automation"]
 
         mycol = mydb["parsed-csv-data"]
-        result = mycol.insert_many(my_dict)
+        for my_dict in my_dict_list:
+            mycol.insert_many(my_dict)
         # moving parsed files from to_parse to parsed directory after writing to database
         move_parsed_files(get_downloaded_files_list_array())
-        return result.acknowledged
+        return True
     except Exception:
         return False
