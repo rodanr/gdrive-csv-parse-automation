@@ -30,15 +30,38 @@ def csv_to_dict(filename: string) -> list:
             document_array.append(row)
     for i in range(1, len(document_array)):
         temp_dict = {}
+        answers_dict = {}
+        questions = [
+            "Q1",
+            "Q2",
+            "Q3",
+            "Q4",
+            "Q5",
+            "Q6",
+            "Q7",
+            "Q8",
+            "Q9",
+            "Q10",
+            "Q11",
+            "Q12",
+            "Q13",
+            "Q14",
+            "Q15",
+            "Q16",
+            "Q17",
+            "Q18",
+            "Q19",
+            "Q20",
+        ]
         for attribute_pos in range(len(document_array[i])):
-            if document_array[0][attribute_pos] == "answers":
-                temp_dict.update(
-                    {
-                        document_array[0][attribute_pos]: json.loads(
-                            document_array[i][attribute_pos]
-                        )
-                    }
+            if document_array[0][attribute_pos] in questions:
+                answers_dict.update(
+                    {document_array[0][attribute_pos]: document_array[i][attribute_pos]}
                 )
+                if document_array[0][attribute_pos] == "Q20":
+                    temp_dict.update({"answers": answers_dict})
+                    answers_dict = {}
+
             else:
                 temp_dict.update(
                     {document_array[0][attribute_pos]: document_array[i][attribute_pos]}
